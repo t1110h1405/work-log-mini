@@ -116,9 +116,10 @@ form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const manualMinutes = Number(manualMinutesInput.value);
+  const timedMinutes = endedAt && elapsedMs > 0 ? Math.max(1, Math.round(elapsedMs / 60000)) : 0;
   const durationMin = Number.isFinite(manualMinutes) && manualMinutes > 0
     ? Math.round(manualMinutes)
-    : Math.round(elapsedMs / 60000);
+    : timedMinutes;
 
   if (!contentInput.value.trim()) {
     setStatus("内容を入力してください。", "error");
