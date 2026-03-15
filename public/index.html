@@ -14,7 +14,6 @@
       <section class="panel">
         <header class="panel-header">
           <p class="eyebrow">Work Log Mini</p>
-          <p class="lead">作業ログ</p>
         </header>
 
         <form id="log-form" class="form">
@@ -41,20 +40,24 @@
           </section>
 
           <div class="footer-row">
-            <label class="field field-compact manual-field">
-              <input
-                id="manual-minutes"
-                name="manualMinutes"
-                type="number"
-                min="1"
-                max="1440"
-                inputmode="numeric"
-                placeholder="手動分"
-              />
-            </label>
+            <button type="button" id="manual-toggle" class="button ghost manual-toggle" aria-expanded="false">
+              手動
+            </button>
 
             <button type="submit" id="save-button" class="button submit">保存</button>
           </div>
+
+          <label class="field field-compact manual-field" id="manual-field" hidden>
+            <input
+              id="manual-minutes"
+              name="manualMinutes"
+              type="number"
+              min="1"
+              max="1440"
+              inputmode="numeric"
+              placeholder="分"
+            />
+          </label>
 
           <p id="status" class="status" aria-live="polite"></p>
         </form>

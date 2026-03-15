@@ -7,6 +7,8 @@ const statusEl = document.getElementById("status");
 const startButton = document.getElementById("start-button");
 const stopButton = document.getElementById("stop-button");
 const resetButton = document.getElementById("reset-button");
+const manualToggle = document.getElementById("manual-toggle");
+const manualField = document.getElementById("manual-field");
 const saveButton = document.getElementById("save-button");
 
 let timerId = null;
@@ -75,6 +77,12 @@ function resetTimerState() {
   setButtons();
 }
 
+function setManualOpen(isOpen) {
+  manualField.hidden = !isOpen;
+  manualToggle.setAttribute("aria-expanded", String(isOpen));
+  manualToggle.classList.toggle("active", isOpen);
+}
+
 startButton.addEventListener("click", () => {
   if (timerId) {
     return;
@@ -109,7 +117,18 @@ stopButton.addEventListener("click", () => {
 resetButton.addEventListener("click", () => {
   resetTimerState();
   manualMinutesInput.value = "";
+  setManualOpen(false);
   setStatus("入力をリセットしました。");
+});
+
+manualToggle.addEventListener("click", () => {
+  const nextState = manualField.hidden;
+  setManualOpen(nextState);
+  if (nextState) {
+    manualMinutesInput.focus();
+  } else {
+    manualMinutesInput.value = "";
+  }
 });
 
 form.addEventListener("submit", async (event) => {
@@ -157,6 +176,7 @@ form.addEventListener("submit", async (event) => {
 
     form.reset();
     resetTimerState();
+    setManualOpen(false);
     setStatus("Notion に保存しました。", "success");
     contentInput.focus();
   } catch (error) {
@@ -177,3 +197,4 @@ if ("serviceWorker" in navigator) {
 syncTimer();
 syncRange();
 setButtons();
+setManualOpen(false);

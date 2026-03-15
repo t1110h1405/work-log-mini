@@ -55,9 +55,8 @@ body {
 .panel-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 8px;
+  justify-content: center;
+  margin-bottom: 6px;
 }
 
 .eyebrow {
@@ -75,17 +74,9 @@ h1 {
   line-height: 1.02;
 }
 
-.lead {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.72rem;
-  line-height: 1;
-  white-space: nowrap;
-}
-
 .form {
   display: grid;
-  grid-template-rows: auto auto 1fr auto auto;
+  grid-template-rows: auto 1fr auto auto auto;
   gap: 8px;
   min-height: 0;
 }
@@ -197,6 +188,15 @@ input:focus {
   align-items: stretch;
 }
 
+.manual-toggle.active {
+  background: rgba(12, 124, 89, 0.14);
+  color: var(--accent-strong);
+}
+
+.manual-field {
+  animation: reveal 140ms ease;
+}
+
 .manual-field input {
   text-align: center;
 }
@@ -230,5 +230,16 @@ input:focus {
 
   .timer-display {
     font-size: clamp(1.55rem, 6vw, 2.2rem);
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
