@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f6f2e9" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="icon" href="/icons/icon-192.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    <title>Work Log Mini</title>
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="panel">
+        <p class="eyebrow">Work Log Mini</p>
+        <h1>作業をサッと記録</h1>
+        <p class="lead">内容、時間、保存だけに絞った Notion 連携ログです。</p>
+
+        <form id="log-form" class="form">
+          <label class="field">
+            <span>内容</span>
+            <input
+              id="content"
+              name="content"
+              type="text"
+              maxlength="100"
+              placeholder="例: LPの修正、見積もり返信"
+              autocomplete="off"
+              required
+            />
+          </label>
+
+          <section class="timer-card" aria-label="timer">
+            <div class="timer-display" id="timer-display">00:00:00</div>
+            <div class="timer-actions">
+              <button type="button" id="start-button" class="button primary">開始</button>
+              <button type="button" id="stop-button" class="button secondary" disabled>停止</button>
+              <button type="button" id="reset-button" class="button ghost">リセット</button>
+            </div>
+            <p class="timer-note" id="range-display">開始前です</p>
+          </section>
+
+          <label class="field">
+            <span>手動入力（分）</span>
+            <input
+              id="manual-minutes"
+              name="manualMinutes"
+              type="number"
+              min="1"
+              max="1440"
+              inputmode="numeric"
+              placeholder="タイマーを使わないときだけ入力"
+            />
+          </label>
+
+          <button type="submit" id="save-button" class="button submit">保存</button>
+          <p id="status" class="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
