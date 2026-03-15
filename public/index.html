@@ -12,19 +12,23 @@
   <body>
     <main class="app-shell">
       <section class="panel">
-        <p class="eyebrow">Work Log Mini</p>
-        <h1>作業をサッと記録</h1>
-        <p class="lead">内容・時間・保存だけ。</p>
+        <header class="panel-header">
+          <div>
+            <p class="eyebrow">Work Log Mini</p>
+            <h1>作業ログ</h1>
+          </div>
+          <p class="lead">最短入力</p>
+        </header>
 
         <form id="log-form" class="form">
-          <label class="field">
-            <span>内容</span>
+          <label class="field field-compact">
+            <span class="label-inline">内容</span>
             <input
               id="content"
               name="content"
               type="text"
               maxlength="100"
-              placeholder="例: LPの修正、見積もり返信"
+              placeholder="例: LP修正"
               autocomplete="off"
               required
             />
@@ -40,8 +44,8 @@
             <p class="timer-note" id="range-display">開始前です</p>
           </section>
 
-          <label class="field">
-            <span>手動入力（分）</span>
+          <label class="field field-compact">
+            <span class="label-inline">手動分</span>
             <input
               id="manual-minutes"
               name="manualMinutes"
@@ -49,7 +53,7 @@
               min="1"
               max="1440"
               inputmode="numeric"
-              placeholder="タイマーを使わないときだけ入力"
+              placeholder="タイマーなしの時だけ"
             />
           </label>
 
