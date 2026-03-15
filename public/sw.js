@@ -1,4 +1,4 @@
-const CACHE_NAME = "work-log-mini-v1";
+const CACHE_NAME = "work-log-mini-v2";
 const ASSETS = [
   "/",
   "/index.html",
@@ -8,8 +8,10 @@ const ASSETS = [
   "/icons/icon-192.svg",
   "/icons/icon-512.svg"
 ];
+const NETWORK_FIRST = new Set(["/", "/index.html", "/styles.css", "/app.js"]);
 
 self.addEventListener("install", (event) => {
+  self.skipWaiting();
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS)));
 });
 
@@ -19,6 +21,7 @@ self.addEventListener("activate", (event) => {
       Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key)))
     )
   );
+  self.clients.claim();
 });
 
 self.addEventListener("fetch", (event) => {
@@ -26,17 +29,28 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  event.respondWith(
-    caches.match(event.request).then((cached) => {
-      if (cached) {
-        return cached;
-      }
+  const requestUrl = new URL(event.request.url);
+  const isNetworkFirst = requestUrl.origin === self.location.origin && NETWORK_FIRST.has(requestUrl.pathname);
 
-      return fetch(event.request).then((response) => {
+  event.respondWith(
+    (isNetworkFirst ? fetch(event.request).catch(() => caches.match(event.request)) : caches.match(event.request))
+      .then((cached) => {
+        if (cached) {
+          return cached;
+        }
+
+        return fetch(event.request).then((response) => {
+          const clone = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
+          return response;
+        });
+      })
+      .catch(() =>
+        fetch(event.request).then((response) => {
         const clone = response.clone();
         caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
         return response;
-      });
-    })
+        })
+      )
   );
 });
