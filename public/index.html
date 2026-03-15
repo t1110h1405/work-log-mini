@@ -13,16 +13,12 @@
     <main class="app-shell">
       <section class="panel">
         <header class="panel-header">
-          <div>
-            <p class="eyebrow">Work Log Mini</p>
-            <h1>作業ログ</h1>
-          </div>
-          <p class="lead">最短入力</p>
+          <p class="eyebrow">Work Log Mini</p>
+          <p class="lead">作業ログ</p>
         </header>
 
         <form id="log-form" class="form">
           <label class="field field-compact">
-            <span class="label-inline">内容</span>
             <input
               id="content"
               name="content"
@@ -44,20 +40,22 @@
             <p class="timer-note" id="range-display">開始前です</p>
           </section>
 
-          <label class="field field-compact">
-            <span class="label-inline">手動分</span>
-            <input
-              id="manual-minutes"
-              name="manualMinutes"
-              type="number"
-              min="1"
-              max="1440"
-              inputmode="numeric"
-              placeholder="タイマーなしの時だけ"
-            />
-          </label>
+          <div class="footer-row">
+            <label class="field field-compact manual-field">
+              <input
+                id="manual-minutes"
+                name="manualMinutes"
+                type="number"
+                min="1"
+                max="1440"
+                inputmode="numeric"
+                placeholder="手動分"
+              />
+            </label>
 
-          <button type="submit" id="save-button" class="button submit">保存</button>
+            <button type="submit" id="save-button" class="button submit">保存</button>
+          </div>
+
           <p id="status" class="status" aria-live="polite"></p>
         </form>
       </section>
